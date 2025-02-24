@@ -1,24 +1,63 @@
 [versions]
+adapterRxjava3 = "2.9.0"
 agp = "8.7.0"
+compiler = "4.14.2"
+converterGson = "2.11.0"
+coreSplashscreen = "1.0.1"
+dagger = "2.28.3"
+githubMoxyVersion = "2.2.2"
+glide = "4.16.0"
+gson = "2.12.1"
 kotlin = "1.9.24"
 coreKtx = "1.15.0"
 junit = "4.13.2"
 junitVersion = "1.2.1"
 espressoCore = "3.6.1"
 appcompat = "1.7.0"
+kotlinxCoroutinesCore = "1.10.1"
+lottie = "6.6.2"
 material = "1.12.0"
 activity = "1.9.3"
 constraintlayout = "2.2.0"
+moxyMaterial = "2.2.2"
+reactivexRxjavaVersion = "3.1.8"
+retrofit = "2.11.0"
+rxandroid = "3.0.2"
+swiperefreshlayout = "1.1.0"
+navigationFragmentKtx = "2.6.0"
+navigationUiKtx = "2.6.0"
+workRuntimeKtx = "2.10.0"
 
 [libraries]
+adapter-rxjava3 = { module = "com.squareup.retrofit2:adapter-rxjava3", version.ref = "adapterRxjava3" }
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
+androidx-core-splashscreen = { module = "androidx.core:core-splashscreen", version.ref = "coreSplashscreen" }
+androidx-swiperefreshlayout = { module = "androidx.swiperefreshlayout:swiperefreshlayout", version.ref = "swiperefreshlayout" }
+com-github-moxy-community-moxy = { module = "com.github.moxy-community:moxy", version.ref = "githubMoxyVersion" }
+compiler = { module = "com.github.bumptech.glide:compiler", version.ref = "compiler" }
+dagger = { module = "com.google.dagger:dagger", version.ref = "dagger" }
+dagger-compiler = { module = "com.google.dagger:dagger-compiler", version.ref = "dagger" }
+glide = { module = "com.github.bumptech.glide:glide", version.ref = "glide" }
+gson = { module = "com.google.code.gson:gson", version.ref = "gson" }
+io-reactivex-rxjava3-rxjava = { module = "io.reactivex.rxjava3:rxjava", version.ref = "reactivexRxjavaVersion" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
 androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
+kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinxCoroutinesCore" }
+lottie = { module = "com.airbnb.android:lottie", version.ref = "lottie" }
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 androidx-activity = { group = "androidx.activity", name = "activity", version.ref = "activity" }
 androidx-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
+moxy-androidx = { module = "com.github.moxy-community:moxy-androidx", version.ref = "githubMoxyVersion" }
+moxy-community-moxy-material = { module = "com.github.moxy-community:moxy-material", version.ref = "moxyMaterial" }
+moxy-compiler = { module = "com.github.moxy-community:moxy-compiler", version.ref = "githubMoxyVersion" }
+retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
+retrofit2-converter-gson = { module = "com.squareup.retrofit2:converter-gson", version.ref = "converterGson" }
+rxandroid = { module = "io.reactivex.rxjava3:rxandroid", version.ref = "rxandroid" }
+androidx-navigation-fragment-ktx = { group = "androidx.navigation", name = "navigation-fragment-ktx", version.ref = "navigationFragmentKtx" }
+androidx-navigation-ui-ktx = { group = "androidx.navigation", name = "navigation-ui-ktx", version.ref = "navigationUiKtx" }
+androidx-work-runtime-ktx = { group = "androidx.work", name = "work-runtime-ktx", version.ref = "workRuntimeKtx" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

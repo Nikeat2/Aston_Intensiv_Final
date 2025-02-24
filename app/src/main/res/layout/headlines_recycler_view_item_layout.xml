@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/white"
+    android:backgroundTint="@color/white"
+    android:layout_width="match_parent"
+    android:layout_height="88dp">
+
+    <ImageView
+        android:id="@+id/rvHeadlinesImageView"
+        android:layout_width="114dp"
+        android:layout_height="64dp"
+        android:layout_marginStart="12dp"
+        android:contentDescription="@string/headlines_rv_image_description"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/rvHeadlinesImageViewOfSource"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="4dp"
+        android:contentDescription="@string/rv_headlines_image_view_of_source_description"
+        app:layout_constraintBottom_toTopOf="@+id/rvHeadlinesHeadlineTextView"
+        app:layout_constraintEnd_toStartOf="@+id/rvHeadlinesNameOfSourceTextView"
+        app:layout_constraintTop_toTopOf="@+id/rvHeadlinesNameOfSourceTextView" />
+
+    <TextView
+        android:id="@+id/rvHeadlinesNameOfSourceTextView"
+        android:layout_width="178dp"
+        android:textSize="11sp"
+        android:layout_height="20dp"
+        android:layout_marginEnd="12dp"
+        android:layout_marginBottom="4dp"
+        android:layout_marginTop="12dp"
+        app:layout_constraintBottom_toTopOf="@id/rvHeadlinesHeadlineTextView"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:text="CNN" />
+
+    <TextView
+        android:id="@+id/rvHeadlinesHeadlineTextView"
+        android:layout_width="206dp"
+        android:textSize="14sp"
+        tools:text="What the fuck is going on in the STATES RIGHT NOW GOD ..."
+        android:layout_height="40dp"
+        android:layout_marginEnd="12dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginBottom="12dp"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
