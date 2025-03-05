@@ -12,6 +12,7 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.room.Room
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.astonfinalproject.R
 import com.example.astonfinalproject.data.data.SavedHeadlines
@@ -21,6 +22,11 @@ import com.example.astonfinalproject.presentation.article_screen.ArticleFragment
 import com.example.astonfinalproject.presentation.filters_screen.FiltersFragment
 import com.example.astonfinalproject.presentation.headlines.view.HEADLINES_FRAGMENT
 import com.example.astonfinalproject.presentation.headlines.view.HeadlinesAdapter
+import com.example.astonfinalproject.room.ArticleDatabase
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class SavedFragment : Fragment(), OnArticleClick {
 
@@ -34,12 +40,18 @@ class SavedFragment : Fragment(), OnArticleClick {
     private lateinit var savedTitleTextView: TextView
     private val filterFragment = FiltersFragment.newInstance()
     private lateinit var arrowBackButton: ImageButton
+    private lateinit var roomInstance: ArticleDatabase
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_saved, container, false)
+        roomInstance = Room.databaseBuilder(
+            context = requireContext(),
+            klass = ArticleDatabase::class.java,
+            name = "file",
+        ).build()
         initViews(view)
         return view
     }
@@ -56,7 +68,7 @@ class SavedFragment : Fragment(), OnArticleClick {
     }
 
     override fun onClick(position: Int, article: Article) {
-        val articleUserWantsToSee = SavedHeadlines.listOfSavedHeadlines[position]
+        val articleUserWantsToSee = listOfSavedHeadlines[position]
         val articleFragment = ArticleFragment.newInstance(articleUserWantsToSee)
         parentFragmentManager.beginTransaction()
             .replace(R.id.fragmentContainerView, articleFragment).addToBackStack("Saved Fragment")
@@ -74,9 +86,7 @@ class SavedFragment : Fragment(), OnArticleClick {
         editTextForSearching = view.findViewById(R.id.editTextForSearching)
         savedTitleTextView = view.findViewById(R.id.savedTitleTextView)
         arrowBackButton = view.findViewById(R.id.arrowBackButton)
-        listOfSavedHeadlines.clear()
-        listOfSavedHeadlines.addAll(SavedHeadlines.listOfSavedHeadlines)
-        adapter.submitList(listOfSavedHeadlines)
+        getArticlesFromDatabase()
     }
 
     private fun setOnTextChangedListener(editText: EditText) {
@@ -116,6 +126,17 @@ class SavedFragment : Fragment(), OnArticleClick {
             editTextForSearching.visibility = View.GONE
             editTextForSearching.text.clear()
             adapter.submitList(SavedHeadlines.listOfSavedHeadlines)
+        }
+    }
+
+    private fun getArticlesFromDatabase() {
+        CoroutineScope(Dispatchers.IO).launch {
+            listOfSavedHeadlines.clear()
+            val favoriteArticles = roomInstance.getArticleDao().getAllArticles()
+            listOfSavedHeadlines.addAll(favoriteArticles)
+            withContext(Dispatchers.Main) {
+                adapter.submitList(listOfSavedHeadlines.toList())
+            }
         }
     }
 

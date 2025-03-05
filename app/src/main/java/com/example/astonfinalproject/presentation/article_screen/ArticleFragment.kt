@@ -8,12 +8,16 @@ import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.room.Room
 import com.bumptech.glide.Glide
 import com.example.astonfinalproject.R
-import com.example.astonfinalproject.data.data.SavedHeadlines
 import com.example.astonfinalproject.data.data.models.headlines.Article
 import com.example.astonfinalproject.domain.headlines.MakeLastSentenceClickableUseCase
+import com.example.astonfinalproject.room.ArticleDatabase
 import com.google.android.material.appbar.CollapsingToolbarLayout
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 const val ARTICLE_THUMBNAIL = "ARTICLE_THUMBNAIL"
 const val ARTICLE_TITLE = "ARTICLE_TITLE"
@@ -41,6 +45,7 @@ class ArticleFragment : Fragment() {
     private var articleGotten: Article? = null
     private lateinit var arrowBackButton: ImageButton
     private val makeLastSentenceClickableUseCase = MakeLastSentenceClickableUseCase()
+    private lateinit var roomInstance: ArticleDatabase
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,6 +58,13 @@ class ArticleFragment : Fragment() {
             articleUrl = it.getString(ARTICLE_URL)
             articleGotten = it.getParcelable(ARTICLE_GOTTEN)
         }
+
+        roomInstance = Room.databaseBuilder(
+            context = requireContext(),
+            klass = ArticleDatabase::class.java,
+            name = "file",
+        ).build()
+
     }
 
     override fun onCreateView(
@@ -98,14 +110,16 @@ class ArticleFragment : Fragment() {
     private fun setListeners() {
         favoriteButton.setOnClickListener {
             isFavorite = !isFavorite
-            if (isFavorite) {
+            if (!isFavorite) {
                 favoriteButton.setImageResource(R.drawable.favorite_icon)
             } else {
                 favoriteButton.setImageResource(R.drawable.favorite_icon_filled)
                 if (articleGotten == null) {
                     println("it's null")
                 } else {
-                    SavedHeadlines.listOfSavedHeadlines.add(articleGotten!!)
+                    CoroutineScope(Dispatchers.IO).launch {
+                        roomInstance.getArticleDao().insertAnArticle(articleGotten!!)
+                    }
                 }
             }
         }
