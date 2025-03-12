@@ -5,16 +5,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.ImageButton
-import android.widget.TextView
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import com.example.astonfinalproject.R
+import com.example.astonfinalproject.databinding.FragmentFiltersBinding
 import com.example.astonfinalproject.presentation.headlines.ui.FILTERS_GOTTEN
 import com.example.astonfinalproject.presentation.headlines.ui.HEADLINES_FRAGMENT
 import com.example.astonfinalproject.presentation.headlines.ui.HEADLINES_FRAGMENT_GONE_TO_FILTERS
-import com.google.android.material.button.MaterialButtonToggleGroup
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
@@ -25,32 +22,18 @@ const val CHOSEN_POPULARITY = "CHOSEN_POPULARITY"
 
 class FiltersFragment : Fragment() {
 
-    private lateinit var arrowBackButton: ImageButton
-    private lateinit var checkButton: ImageButton
-    private lateinit var chooseDateTextView: TextView
-    private lateinit var calendarImageButton: ImageButton
-    private lateinit var choosePopularityButton: MaterialButtonToggleGroup
     private var chosenPopularity: String? = null
     private var chosenDate: String? = null
     private var chosenLanguage: String? = null
-    private lateinit var russianLanguageButton: Button
-    private lateinit var englishLanguageButton: Button
-    private lateinit var deutschLanguageButton: Button
+    private var _binding :FragmentFiltersBinding? = null
+    private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        val view = inflater.inflate(R.layout.fragment_filters, container, false)
-        arrowBackButton = view.findViewById(R.id.arrowBackButton)
-        checkButton = view.findViewById(R.id.checkButton)
-        chooseDateTextView = view.findViewById(R.id.chooseDateTextView)
-        calendarImageButton = view.findViewById(R.id.calendarImageButton)
-        choosePopularityButton = view.findViewById(R.id.categoryButtons)
-        russianLanguageButton = view.findViewById(R.id.russianLanguageButton)
-        englishLanguageButton = view.findViewById(R.id.englishLanguageButton)
-        deutschLanguageButton = view.findViewById(R.id.deutschLanguageButton)
-        return view
+    ): View {
+        _binding = FragmentFiltersBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -69,7 +52,7 @@ class FiltersFragment : Fragment() {
             { _, selectedYear, selectedMonth, selectedDay ->
 
                 val selectedDate = formatDateToISO(selectedYear, selectedMonth + 1, selectedDay)
-                chooseDateTextView.text = selectedDate
+                binding.chooseDateTextView.text = selectedDate
                 chosenDate = selectedDate
             },
             year, month, day
@@ -87,11 +70,11 @@ class FiltersFragment : Fragment() {
     }
 
     private fun setOnButtonClickListeners() {
-        calendarImageButton.setOnClickListener {
+        binding.calendarImageButton.setOnClickListener {
             showDatePicker()
         }
 
-        choosePopularityButton.addOnButtonCheckedListener { _, checkedId, isChecked ->
+        binding.categoryButtons.addOnButtonCheckedListener { _, checkedId, isChecked ->
             if (isChecked) {
                 when (checkedId) {
                     R.id.relevantButton -> chosenPopularity = "relevancy"
@@ -101,23 +84,23 @@ class FiltersFragment : Fragment() {
             }
         }
 
-        russianLanguageButton.setOnClickListener {
+        binding.russianLanguageButton.setOnClickListener {
             chosenLanguage = "ru"
         }
 
-        englishLanguageButton.setOnClickListener {
+        binding.englishLanguageButton.setOnClickListener {
             chosenLanguage = "en"
         }
 
-        deutschLanguageButton.setOnClickListener {
+        binding.deutschLanguageButton.setOnClickListener {
             chosenLanguage = "de"
         }
 
-        checkButton.setOnClickListener {
+        binding.checkButton.setOnClickListener {
             setFragmentResult()
         }
 
-        arrowBackButton.setOnClickListener {
+        binding.arrowBackButton.setOnClickListener {
             parentFragmentManager.popBackStack(HEADLINES_FRAGMENT_GONE_TO_FILTERS, 0)
         }
     }

@@ -10,6 +10,7 @@ import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.room.Room
@@ -19,6 +20,7 @@ import com.example.astonfinalproject.data.data.SavedHeadlines
 import com.example.astonfinalproject.data.data.models.headlines.Article
 import com.example.astonfinalproject.domain.headlines.OnArticleClick
 import com.example.astonfinalproject.presentation.article_screen.view.ArticleFragment
+import com.example.astonfinalproject.presentation.article_screen.viewmodel.ArticleFragmentViewModel
 import com.example.astonfinalproject.presentation.filters_screen.FiltersFragment
 import com.example.astonfinalproject.presentation.headlines.ui.HEADLINES_FRAGMENT
 import com.example.astonfinalproject.presentation.headlines.ui.HeadlinesAdapter
@@ -41,6 +43,8 @@ class SavedFragment : Fragment(), OnArticleClick {
     private val filterFragment = FiltersFragment.newInstance()
     private lateinit var arrowBackButton: ImageButton
     private lateinit var roomInstance: ArticleDatabase
+
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -69,6 +73,8 @@ class SavedFragment : Fragment(), OnArticleClick {
 
     override fun onClick(position: Int, article: Article) {
         val articleUserWantsToSee = listOfSavedHeadlines[position]
+        val viewModel: ArticleFragmentViewModel by activityViewModels()
+        viewModel.updateMutableFlow(articleUserWantsToSee)
         val articleFragment = ArticleFragment.newInstance()
         parentFragmentManager.beginTransaction()
             .replace(R.id.fragmentContainerView, articleFragment).addToBackStack("Saved Fragment")
