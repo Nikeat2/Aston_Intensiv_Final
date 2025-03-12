@@ -18,7 +18,7 @@ import com.example.astonfinalproject.R
 import com.example.astonfinalproject.data.data.models.headlines.Article
 import com.example.astonfinalproject.data.data.models.sources.Source
 import com.example.astonfinalproject.domain.headlines.OnArticleClick
-import com.example.astonfinalproject.presentation.article_screen.ArticleFragment
+import com.example.astonfinalproject.presentation.article_screen.view.ArticleFragment
 import com.example.astonfinalproject.presentation.filters_screen.FiltersFragment
 import com.example.astonfinalproject.presentation.headlines.ui.HEADLINES_FRAGMENT
 import com.example.astonfinalproject.presentation.sources.data.GetArticlesBySourceImpl
@@ -87,7 +87,7 @@ class NewsBySourceFragment : Fragment(), OnArticleClick {
 
     override fun onClick(position: Int, article: Article) {
         val articleUserWantsToSee = adapter.currentList[position]
-        val articleFragment = ArticleFragment.newInstance(articleUserWantsToSee)
+        val articleFragment = ArticleFragment.newInstance()
         parentFragmentManager.beginTransaction()
             .replace(R.id.fragmentContainerView, articleFragment).addToBackStack(HEADLINES_FRAGMENT)
             .commit()

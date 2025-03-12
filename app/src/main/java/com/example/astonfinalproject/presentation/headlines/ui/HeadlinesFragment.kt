@@ -8,10 +8,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
-import android.widget.ImageButton
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
+import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.astonfinalproject.R
@@ -21,7 +20,9 @@ import com.example.astonfinalproject.data.data.models.headlines.HeadlinesToolBar
 import com.example.astonfinalproject.databinding.FragmentHeadlinesBinding
 import com.example.astonfinalproject.di.App
 import com.example.astonfinalproject.domain.headlines.OnArticleClick
-import com.example.astonfinalproject.presentation.article_screen.ArticleFragment
+import com.example.astonfinalproject.presentation.activity.MainActivity
+import com.example.astonfinalproject.presentation.article_screen.view.ArticleFragment
+import com.example.astonfinalproject.presentation.article_screen.viewmodel.ArticleFragmentViewModel
 import com.example.astonfinalproject.presentation.filters_screen.CHOSEN_DATE
 import com.example.astonfinalproject.presentation.filters_screen.CHOSEN_LANGUAGE
 import com.example.astonfinalproject.presentation.filters_screen.CHOSEN_POPULARITY
@@ -37,6 +38,7 @@ import javax.inject.Inject
 const val HEADLINES_FRAGMENT = "HEADLINES_FRAGMENT"
 const val FILTERS_GOTTEN = "FILTERS_GOTTEN"
 const val HEADLINES_FRAGMENT_GONE_TO_FILTERS = "HEADLINES_FRAGMENT_GONE_TO_FILTERS"
+const val ARTICLE_FRAGMENT = "ARTICLE_FRAGMENT"
 
 class HeadlinesFragment : MvpAppCompatFragment(), OnArticleClick, ArticleView {
     var chosenLanguage: String? = null
@@ -61,6 +63,8 @@ class HeadlinesFragment : MvpAppCompatFragment(), OnArticleClick, ArticleView {
         return ArticlePresenter(articleRepository)
     }
 
+
+
     override fun onAttach(context: Context) {
         super.onAttach(context)
         (requireActivity().application as App).appComponent.inject(this)
@@ -68,7 +72,7 @@ class HeadlinesFragment : MvpAppCompatFragment(), OnArticleClick, ArticleView {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentHeadlinesBinding.inflate(inflater, container, false)
         initViews()
         setOnClickListeners()
@@ -79,6 +83,7 @@ class HeadlinesFragment : MvpAppCompatFragment(), OnArticleClick, ArticleView {
         super.onViewCreated(view, savedInstanceState)
         setFragmentResultListener()
         binding.headlinesToolBar.adapter = headlinesToolBarAdapter
+
         addOnScrollListenerToRecyclerView(binding.recyclerViewHeadlines)
     }
 
@@ -90,9 +95,11 @@ class HeadlinesFragment : MvpAppCompatFragment(), OnArticleClick, ArticleView {
 
     override fun onClick(position: Int, article: Article) {
         val articleUserWantsToSee = adapter.currentList[position]
-        val articleFragment = ArticleFragment.newInstance(articleUserWantsToSee)
+        val viewModel: ArticleFragmentViewModel by activityViewModels()
+        viewModel.updateMutableFlow(articleUserWantsToSee)
+        val articleFragment = ArticleFragment.newInstance()
         parentFragmentManager.beginTransaction()
-            .replace(R.id.fragmentContainerView, articleFragment).addToBackStack(HEADLINES_FRAGMENT)
+            .replace(R.id.fragmentContainerView, articleFragment).addToBackStack(ARTICLE_FRAGMENT)
             .commit()
     }
 
@@ -200,10 +207,9 @@ class HeadlinesFragment : MvpAppCompatFragment(), OnArticleClick, ArticleView {
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
 
             override fun afterTextChanged(s: Editable?) {
-                val query = s.toString()
-                    if (query.length >= 3) {
-                        presenter.loadArticlesByTextInput(userInput = query)
-                    }
+                if (s.toString().length >= 3) {
+                    presenter.loadArticlesByTextInput(userInput = s.toString())
+                }
             }
         })
     }
