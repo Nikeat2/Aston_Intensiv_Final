@@ -1,7 +1,7 @@
 package com.example.astonfinalproject.presentation.sources.domain
 
 import com.example.astonfinalproject.data.data.models.headlines.Article
-import com.example.astonfinalproject.presentation.headlines.view.HeadlinesAdapter
+import com.example.astonfinalproject.presentation.headlines.ui.HeadlinesAdapter
 
 interface GetArticlesByUserTextInput {
 

@@ -11,7 +11,7 @@ const val BASE_URL = "https://newsapi.org/v2/"
 
 object RetrofitInstance {
 
-    private val client = OkHttpClient.Builder()
+    internal val client = OkHttpClient.Builder()
         .protocols(listOf(Protocol.HTTP_2, Protocol.HTTP_1_1))
         .build()
 

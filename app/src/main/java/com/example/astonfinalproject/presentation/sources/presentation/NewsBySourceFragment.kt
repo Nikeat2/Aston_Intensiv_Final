@@ -20,7 +20,7 @@ import com.example.astonfinalproject.data.data.models.sources.Source
 import com.example.astonfinalproject.domain.headlines.OnArticleClick
 import com.example.astonfinalproject.presentation.article_screen.ArticleFragment
 import com.example.astonfinalproject.presentation.filters_screen.FiltersFragment
-import com.example.astonfinalproject.presentation.headlines.view.HEADLINES_FRAGMENT
+import com.example.astonfinalproject.presentation.headlines.ui.HEADLINES_FRAGMENT
 import com.example.astonfinalproject.presentation.sources.data.GetArticlesBySourceImpl
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 

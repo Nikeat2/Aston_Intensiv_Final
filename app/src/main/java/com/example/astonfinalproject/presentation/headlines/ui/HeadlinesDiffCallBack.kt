@@ -1,4 +1,4 @@
-package com.example.astonfinalproject.presentation.headlines.view
+package com.example.astonfinalproject.presentation.headlines.ui
 
 import androidx.recyclerview.widget.DiffUtil
 import com.example.astonfinalproject.data.data.models.headlines.Article

@@ -7,8 +7,8 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.Fragment
 import com.example.astonfinalproject.R
-import com.example.astonfinalproject.presentation.headlines.view.HEADLINES_FRAGMENT
-import com.example.astonfinalproject.presentation.headlines.view.HeadlinesFragment
+import com.example.astonfinalproject.presentation.headlines.ui.HEADLINES_FRAGMENT
+import com.example.astonfinalproject.presentation.headlines.ui.HeadlinesFragment
 import com.example.astonfinalproject.presentation.saved.SavedFragment
 import com.example.astonfinalproject.presentation.sources.presentation.SourcesFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -61,7 +61,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun loadFragment(fragment: Fragment) {
-        supportFragmentManager.beginTransaction().replace(R.id.fragmentContainerView, fragment)
+        supportFragmentManager.beginTransaction().replace(R.id.fragmentContainerView, fragment).addToBackStack(
+            HEADLINES_FRAGMENT)
             .commit()
     }
 

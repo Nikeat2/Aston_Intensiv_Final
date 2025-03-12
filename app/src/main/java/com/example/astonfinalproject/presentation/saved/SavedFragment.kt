@@ -20,8 +20,8 @@ import com.example.astonfinalproject.data.data.models.headlines.Article
 import com.example.astonfinalproject.domain.headlines.OnArticleClick
 import com.example.astonfinalproject.presentation.article_screen.ArticleFragment
 import com.example.astonfinalproject.presentation.filters_screen.FiltersFragment
-import com.example.astonfinalproject.presentation.headlines.view.HEADLINES_FRAGMENT
-import com.example.astonfinalproject.presentation.headlines.view.HeadlinesAdapter
+import com.example.astonfinalproject.presentation.headlines.ui.HEADLINES_FRAGMENT
+import com.example.astonfinalproject.presentation.headlines.ui.HeadlinesAdapter
 import com.example.astonfinalproject.room.ArticleDatabase
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers

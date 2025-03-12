@@ -38,29 +38,49 @@ android {
     buildFeatures {
         viewBinding = true
     }
+
+    viewBinding {
+        enable = true
+    }
 }
 
 dependencies {
-    implementation (libs.dagger)
-    kapt (libs.dagger.compiler)
-    implementation (libs.dagger.android)
-    implementation (libs.dagger.android.support)
-    kapt (libs.dagger.android.processor)
-    implementation(libs.androidx.room.runtime)
-    implementation(libs.androidx.swiperefreshlayout)
+
+    //Moxy
+    implementation (libs.moxy.community.moxy.material)
     implementation (libs.com.github.moxy.community.moxy)
     implementation (libs.moxy.androidx)
-    implementation (libs.moxy.community.moxy.material)
-    implementation(libs.androidx.navigation.fragment.ktx)
-    implementation(libs.androidx.navigation.ui.ktx)
-    implementation(libs.androidx.work.runtime.ktx)
+    kapt (libs.moxy.compiler)
+
+    val daggerVersion = "2.55"
+
+    //Dagger
+    implementation ("com.google.dagger:dagger:$daggerVersion")
+    kapt ("com.google.dagger:dagger-compiler:$daggerVersion")
+    implementation ("com.google.dagger:dagger-android:$daggerVersion")
+    implementation ("com.google.dagger:dagger-android-support:$daggerVersion")
+    kapt ("com.google.dagger:dagger-android-processor:$daggerVersion")
+
+    //Room
+    implementation(libs.androidx.room.runtime)
     implementation(libs.androidx.room.common)
     kapt(libs.androidx.room.compiler)
     implementation(libs.room.ktx)
-    kapt (libs.moxy.compiler)
+
+    //RxJava
     implementation (libs.io.reactivex.rxjava3.rxjava)
     implementation (libs.rxandroid)
     implementation (libs.adapter.rxjava3)
+
+
+
+    implementation(libs.androidx.swiperefreshlayout)
+    implementation(libs.androidx.navigation.fragment.ktx)
+    implementation(libs.androidx.navigation.ui.ktx)
+    implementation(libs.androidx.work.runtime.ktx)
+
+
+
     implementation(libs.retrofit2.converter.gson)
     implementation (libs.retrofit)
     implementation(libs.okhttp)
@@ -77,4 +97,9 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+}
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(17)
+    }
 }

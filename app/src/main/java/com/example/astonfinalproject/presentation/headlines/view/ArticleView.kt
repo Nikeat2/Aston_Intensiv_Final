@@ -5,14 +5,12 @@ import moxy.MvpView
 import moxy.viewstate.strategy.AddToEndSingleStrategy
 import moxy.viewstate.strategy.StateStrategyType
 
+@StateStrategyType(AddToEndSingleStrategy::class)
 interface ArticleView : MvpView {
 
-    @StateStrategyType(AddToEndSingleStrategy::class)
     fun showLoading(isLoading: Boolean)
 
-    @StateStrategyType(AddToEndSingleStrategy::class)
     fun showArticles(articles: List<Article>)
 
-    @StateStrategyType(AddToEndSingleStrategy::class)
     fun showError(message: String)
 }

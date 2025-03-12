@@ -11,7 +11,7 @@ import com.bumptech.glide.Glide
 import com.example.astonfinalproject.R
 import com.example.astonfinalproject.data.data.models.headlines.Article
 import com.example.astonfinalproject.domain.headlines.OnArticleClick
-import com.example.astonfinalproject.presentation.headlines.view.HeadlinesDiffCallBack
+import com.example.astonfinalproject.presentation.headlines.ui.HeadlinesDiffCallBack
 
 class NewsBySourceAdapter(
     private val onArticleClickListener: OnArticleClick

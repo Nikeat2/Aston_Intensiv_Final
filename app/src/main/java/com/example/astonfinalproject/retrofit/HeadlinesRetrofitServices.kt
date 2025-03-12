@@ -14,7 +14,7 @@ interface HeadlinesRetrofitService {
         @Query("q") topic: String?,
         @Query("pageSize") pageSize: Int = 10,
         @Query("page") page: Int,
-        @Query("apiKey") apiKey: String = FIRST_API_KEY
+        @Query("apiKey") apiKey: String = SECOND_API_KEY
     ): Single<NewsApiResponse>
 
     @GET("top-headlines")
@@ -22,7 +22,7 @@ interface HeadlinesRetrofitService {
         @Query("sources") source: String,
         @Query("pageSize") pageSize: Int = 10,
         @Query("page") page: Int,
-        @Query("apiKey") apiKey: String = FIRST_API_KEY
+        @Query("apiKey") apiKey: String = SECOND_API_KEY
     ): Single<NewsApiResponse>
 
     @GET("everything")
@@ -33,7 +33,7 @@ interface HeadlinesRetrofitService {
         @Query("language") language: String?,
         @Query("pageSize") pageSize: Int = 10,
         @Query("page") page: Int,
-        @Query("apiKey") apiKey: String = FIRST_API_KEY
+        @Query("apiKey") apiKey: String = SECOND_API_KEY
     ): Single<NewsApiResponse>
 
     @GET("everything")
@@ -42,6 +42,6 @@ interface HeadlinesRetrofitService {
         @Query("pageSize") pageSize: Int = 10,
         @Query("page") page: Int,
         @Query("searchIn") userInput: String = "title,content",
-        @Query("apiKey") apiKey: String = FIRST_API_KEY
+        @Query("apiKey") apiKey: String = SECOND_API_KEY
     ): Single<NewsApiResponse>
 }

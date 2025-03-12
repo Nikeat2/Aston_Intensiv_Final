@@ -1,4 +1,4 @@
-package com.example.astonfinalproject.presentation.headlines.view
+package com.example.astonfinalproject.presentation.headlines.ui
 
 import android.view.LayoutInflater
 import android.view.View

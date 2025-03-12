@@ -11,8 +11,9 @@ import android.widget.TextView
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import com.example.astonfinalproject.R
-import com.example.astonfinalproject.presentation.headlines.view.FILTERS_GOTTEN
-import com.example.astonfinalproject.presentation.headlines.view.HEADLINES_FRAGMENT
+import com.example.astonfinalproject.presentation.headlines.ui.FILTERS_GOTTEN
+import com.example.astonfinalproject.presentation.headlines.ui.HEADLINES_FRAGMENT
+import com.example.astonfinalproject.presentation.headlines.ui.HEADLINES_FRAGMENT_GONE_TO_FILTERS
 import com.google.android.material.button.MaterialButtonToggleGroup
 import java.text.SimpleDateFormat
 import java.util.Calendar
@@ -117,7 +118,7 @@ class FiltersFragment : Fragment() {
         }
 
         arrowBackButton.setOnClickListener {
-            parentFragmentManager.popBackStack(HEADLINES_FRAGMENT, 1)
+            parentFragmentManager.popBackStack(HEADLINES_FRAGMENT_GONE_TO_FILTERS, 0)
         }
     }
 
@@ -133,7 +134,7 @@ class FiltersFragment : Fragment() {
         }
 
         parentFragmentManager.setFragmentResult(FILTERS_GOTTEN, filtersChosen)
-        parentFragmentManager.popBackStack(HEADLINES_FRAGMENT, 1)
+        parentFragmentManager.popBackStack(HEADLINES_FRAGMENT, 0)
     }
 
     companion object {
